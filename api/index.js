@@ -21,5 +21,5 @@ app.get('/data', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Api listening at http://localhost:${port}`)
+  console.log(`Backend listening at http://localhost:${port}`)
 });
