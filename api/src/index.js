@@ -17,7 +17,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/data', (req, res) => {
-  res.json([{ name: 'David' }, { name: 'Susan'} ]);
+  res.json([{ name: 'David' }, { name: 'Susan'}, { name: process.env.NAME } ]);
 })
 
 app.listen(port, () => {

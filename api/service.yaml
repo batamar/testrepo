@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api
+  namespace: test
+  labels:
+    app: api
+spec:
+  type: ClusterIP
+  selector:
+    app: api
+  ports:
+    - port: 3100
+      name: http
+      targetPort: 3100
