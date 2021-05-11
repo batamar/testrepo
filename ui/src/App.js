@@ -5,34 +5,41 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { names: [] };
+    this.state = { names: [], token: '' };
   }
 
   componentDidMount() {
-    fetch(`${process.env.API_URL || "http://localhost:3100"}/data`)
+    fetch(`${process.env.API_URL || "http://localhost:3100"}/data`, { credentials: 'include' })
       .then((response) => response.json())
       .then((response) => {
-        console.log('names ......', response);
-        this.setState({ names: response })
+        this.setState({ names: response.users, token: response.token })
+      });
+  }
+
+  onLogin = () => {
+    fetch(`${process.env.API_URL || "http://localhost:3100"}/login`, { credentials: 'include', method: 'POST' })
+      .then((response) => response.text())
+      .then((response) => {
+        console.log('login ......', response);
       });
   }
 
   render() {
+    const { token } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
 
-          <b>Names</b>
-
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          {token ? (
+            "LoggedIn"
+          ) : (
+            <div>
+              <b>Login</b>
+              <button onClick={this.onLogin}>Login</button>
+            </div>
+          )}
         </header>
       </div>
     );

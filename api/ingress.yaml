@@ -15,15 +15,18 @@ metadata:
       more_set_headers "X-Xss-Protection: 1; mode=block";
 spec:
   rules:
-    - host: "*.qc-saas.erxes.io"
+    - host: "*.qc-saas-api.erxes.io"
       http:
         paths:
-          - path: /api/?(.*)
+          - path: /?(.*)
             backend:
               serviceName: api
               servicePort: 3100
 
-          - path: /integrations/?(.*)
+    - host: "*.qc-saas-integrations.erxes.io"
+      http:
+        paths:
+          - path: /?(.*)
             backend:
               serviceName: integrations
               servicePort: 6100
