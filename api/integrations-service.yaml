@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: integrations
+  namespace: test
+  labels:
+    app: integrations
+spec:
+  type: ClusterIP
+  selector:
+    app: integrations
+  ports:
+    - port: 6100
+      name: http
+      targetPort: 6100

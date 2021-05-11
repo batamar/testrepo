@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: integrations
+  namespace: test
+  labels:
+    app: integrations
+  annotations:
+    keel.sh/policy: force
+    keel.sh/match-tag: "true"
+spec:
+  selector:
+    matchLabels:
+      app: integrations
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: integrations
+    spec:
+      terminationGracePeriodSeconds: 300
+      containers:
+        - name: integrations
+          image: batamar/testrepo:master
+          imagePullPolicy: Always
+          command: ["node"]
+          args: ["--max_old_space_size=8192", "src"]
+          ports:
+            - name: http
+              containerPort: 6100
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: NAME
+              value: integrations

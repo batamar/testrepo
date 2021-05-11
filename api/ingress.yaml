@@ -18,7 +18,12 @@ spec:
     - host: "*.qc-saas.erxes.io"
       http:
         paths:
-          - path: /test/?(.*)
+          - path: /api/?(.*)
             backend:
               serviceName: api
               servicePort: 3100
+
+          - path: /integrations/?(.*)
+            backend:
+              serviceName: integrations
+              servicePort: 6100

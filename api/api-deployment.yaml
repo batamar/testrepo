@@ -35,6 +35,8 @@ spec:
               containerPort: 3100
               protocol: TCP
           env:
-            # erxes-api general
             - name: NODE_ENV
               value: production
+
+            - name: NAME
+              value: api
